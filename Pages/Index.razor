@@ -1,0 +1,50 @@
+﻿@page "/"
+@inject IJSRuntime JS
+
+<PageTitle>Index</PageTitle>
+
+<div class="col s12">
+    <p class="center">Login</p>
+
+    <div class="input-field col s12">
+
+        <i class="material-icons prefix">person</i>
+
+        <input placeholder="informe seu nome de usuário" type="text" @bind-value="@user.username" @bind-value:event="oninput" id="username" name="username" class="txtUsername" required>
+
+        <label class="active" for="username">Username</label>
+
+    </div>
+
+    <div class="input-field col s12">
+
+        <i class="material-icons prefix">password</i>
+
+        <input placeholder="informe sua senha" type="password" @bind-value="@user.password" @bind-value:event="oninput" id="password" name="password" class="txtPassword"
+            required>
+
+        <label class="active" for="password">Password</label>
+
+    </div>
+    <div class="col s12 center">
+        <button type="button" class="btn" @onclick="()=> saudar()"  style="width:100% !important">logar</button>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <p class="center">@user.username</p>
+        </div>
+    </div>
+
+</div>
+@code{
+    Usuario user = new Usuario();
+
+
+    private void saudar(){
+        user.data = DateTime.Now.ToString();
+        JS.InvokeVoidAsync("alert",$"Data: {user.data}\nNome: {user.username}");
+    }
+
+    
+
+}

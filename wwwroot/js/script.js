@@ -1,0 +1,1 @@
+window.startMaterialize = ()=> M.AutoInit();
