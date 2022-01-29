@@ -1,50 +1,58 @@
 ﻿@page "/"
 @inject IJSRuntime JS
+@inject NavigationManager navigation
 
 <PageTitle>Index</PageTitle>
 
-<div class="col s12">
-    <p class="center">Login</p>
-
-    <div class="input-field col s12">
-
-        <i class="material-icons prefix">person</i>
-
-        <input placeholder="informe seu nome de usuário" type="text" @bind-value="@user.username" @bind-value:event="oninput" id="username" name="username" class="txtUsername" required>
-
-        <label class="active" for="username">Username</label>
-
+<div class="col s12 l6 push-l3">
+    <div class="col s12 center" id="img-container">
+        <img src="imagens/login.png" id="login" class="responsive-img">
     </div>
+    <EditForm Model="@user" OnValidSubmit="Salvar">
+        <DataAnnotationsValidator />
+        <div class="input-field col s12">
 
-    <div class="input-field col s12">
+            <i class="material-icons prefix">person</i>
 
-        <i class="material-icons prefix">password</i>
+            <input placeholder="informe seu nome de usuário" type="text" @bind-value="@user.username"
+                @bind-value:event="oninput" id="username" name="username" class="txtUsername">
 
-        <input placeholder="informe sua senha" type="password" @bind-value="@user.password" @bind-value:event="oninput" id="password" name="password" class="txtPassword"
-            required>
+            <label class="active" for="username">Username</label>
+            <p class="center">
+                <ValidationMessage For="@(() => user.username)" style="color: red;" />
+            </p>
 
-        <label class="active" for="password">Password</label>
-
-    </div>
-    <div class="col s12 center">
-        <button type="button" class="btn" @onclick="()=> saudar()"  style="width:100% !important">logar</button>
-    </div>
-    <div class="row">
-        <div class="col s12">
-            <p class="center">@user.username</p>
         </div>
-    </div>
+
+        <div class="input-field col s12">
+
+            <i class="material-icons prefix">password</i>
+
+            <input placeholder="informe sua senha" type="password" @bind-value="@user.password"
+                @bind-value:event="oninput" id="password" name="password" class="txtPassword">
+
+            <label class="active" for="password">Password</label>
+            <p class="center">
+                <ValidationMessage For="@(() => user.password)" style="color: red;" />
+            </p>
+
+        </div>
+
+        <div class="col s12 center">
+            <button type="submit" class="btn waves-effect" style="width:100% !important">logar</button>
+        </div>
+    </EditForm>
 
 </div>
-@code{
+@code {
     Usuario user = new Usuario();
 
-
-    private void saudar(){
+     private void Salvar()
+    {
         user.data = DateTime.Now.ToString();
-        JS.InvokeVoidAsync("alert",$"Data: {user.data}\nNome: {user.username}");
+        navigation.NavigateTo("/home");
     }
 
-    
+
 
 }

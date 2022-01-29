@@ -1,0 +1,17 @@
+@page "/home"
+@inject IJSRuntime JS
+<PageTitle>Home</PageTitle>
+
+
+
+
+
+
+@code{
+
+    protected override async Task OnInitializedAsync()
+    {
+        await JS.InvokeVoidAsync("Welcome");
+    }
+
+}
